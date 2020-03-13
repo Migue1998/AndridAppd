@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="80dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginTop="40dp"
@@ -24,11 +24,20 @@
         android:layout_width="130dp"
         android:layout_height="80dp"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/carga"
         android:textSize="20dp"
         android:onClick="toggleGPSUpdate"
         tools:ignore="OnClick"/>
+    <TextView
+        android:layout_width="130dp"
+        android:layout_marginLeft="45dp"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:text="En Carga"
+        android:textStyle="bold"
+        android:textColor="#6495ED"
+        android:textSize="20dp"/>
 
     <Button
         android:id="@+id/btn_inicar"
@@ -36,26 +45,58 @@
         android:layout_height="80dp"
         android:layout_marginStart="220dp"
         android:background="@drawable/terminarbandera"
-        android:layout_marginTop="-80dp"
+        android:layout_marginTop="-110dp"
         android:textSize="20dp" />
+    <TextView
+        android:layout_width="130dp"
+        android:layout_marginLeft="220dp"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:text="Iniciando"
+        android:textStyle="bold"
+        android:textColor="#6495ED"
+        android:textSize="20dp"/>
+
 
     <Button
         android:id="@+id/btn_descargar"
         android:layout_width="130dp"
         android:layout_height="80dp"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/descargar"
         android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="130dp"
+        android:layout_marginLeft="45dp"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:text="En Descarga"
+        android:textStyle="bold"
+        android:textColor="#6495ED"
+        android:textSize="20dp"/>
 
     <Button
         android:id="@+id/btn_finalizar"
         android:layout_width="130dp"
         android:layout_height="80dp"
         android:layout_marginStart="220dp"
-        android:layout_marginTop="-80dp"
+        android:layout_marginTop="-110dp"
         android:background="@drawable/flag"
-        android:textSize="20dp" />
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="130dp"
+        android:layout_marginLeft="220dp"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:text="Finalizando"
+        android:textStyle="bold"
+        android:textColor="#6495ED"
+        android:textSize="20dp"/>
+
+
 
     <ImageView
         android:id="@+id/imageView1"
@@ -63,9 +104,10 @@
         android:layout_height="100dp"
         android:layout_marginStart="110dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginTop="-5dp"
+        android:layout_marginTop="30dp"
         app:srcCompat="@drawable/logo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginBottom="10dp"
+        />
+
 
 </LinearLayout>

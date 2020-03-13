@@ -1,5 +1,6 @@
 package com.example.sistemausuarios;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -12,9 +13,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -46,6 +49,7 @@ public class Menu extends AppCompatActivity {
         cargar = findViewById(R.id.btn_carga);
         descarga = findViewById(R.id.btn_descargar);
         fin = findViewById(R.id.btn_finalizar);
+
 
         cargar.setOnClickListener(new View.OnClickListener() {
             @Override
