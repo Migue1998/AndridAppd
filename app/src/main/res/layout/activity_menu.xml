@@ -25,8 +25,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="80dp"
-        android:backgroundTint="#FFEB3B"
-        android:text="Carga"
+        android:background="@drawable/carga"
         android:textSize="20dp"
         android:onClick="toggleGPSUpdate"
         tools:ignore="OnClick"/>
@@ -36,9 +35,8 @@
         android:layout_width="130dp"
         android:layout_height="80dp"
         android:layout_marginStart="220dp"
+        android:background="@drawable/terminarbandera"
         android:layout_marginTop="-80dp"
-        android:backgroundTint="#4CAF50"
-        android:text="Iniciar"
         android:textSize="20dp" />
 
     <Button
@@ -47,8 +45,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="80dp"
-        android:backgroundTint="#00BCD4"
-        android:text="Descarga"
+        android:background="@drawable/descargar"
         android:textSize="20dp" />
 
     <Button
@@ -57,8 +54,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="220dp"
         android:layout_marginTop="-80dp"
-        android:backgroundTint="#F44336"
-        android:text="Finalizar"
+        android:background="@drawable/flag"
         android:textSize="20dp" />
 
     <ImageView
