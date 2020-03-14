@@ -23,6 +23,8 @@ import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.DefaultBHttpClientConnection;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -36,6 +38,8 @@ public class Menu extends AppCompatActivity {
     public JSONObject jsonObject;
     double latitud;
     double longitud;
+    String fecha_hora;
+    public String estatus;
     String msj = "";
     private LocationManager locationManager;
     private Location location;
@@ -54,7 +58,41 @@ public class Menu extends AppCompatActivity {
         cargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cargaAsyn cargaAsyn = new cargaAsyn();
+                estatus = "En carga";
+                Tracing cargaAsyn = new Tracing();
+                cargaAsyn.execute();
+                Toast t = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+                t.show();
+            }
+        });
+
+        inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                estatus = "Iniciando Viaje";
+                Tracing cargaAsyn = new Tracing();
+                cargaAsyn.execute();
+                Toast t = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+                t.show();
+            }
+        });
+
+        descarga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                estatus = "En descarga";
+                Tracing cargaAsyn = new Tracing();
+                cargaAsyn.execute();
+                Toast t = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
+                t.show();
+            }
+        });
+
+        fin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                estatus = "Finalizado";
+                Tracing cargaAsyn = new Tracing();
                 cargaAsyn.execute();
                 Toast t = Toast.makeText(getApplicationContext(), msj, Toast.LENGTH_LONG);
                 t.show();
@@ -77,7 +115,7 @@ public class Menu extends AppCompatActivity {
 
     }
 
-    private class cargaAsyn extends AsyncTask<String, Integer, Boolean> {
+    private class Tracing extends AsyncTask<String, Integer, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -85,14 +123,27 @@ public class Menu extends AppCompatActivity {
             Boolean resultado = null;
             latitud = location.getLatitude();
             longitud = location.getLongitude();
+            fecha_hora = "2020-03-13";
+
+
 
             HttpClient httpClient = new DefaultHttpClient();
-            String url = "(http://localhost:8080/WebServiceLogin/webresources/ites/insertar/" + latitud + "/" + longitud + ")";
-            HttpGet get = new HttpGet(url);
-            get.setHeader("content-type", "application/json");
+            String url = "http://10.0.2.2:8080/WSerp/rest/Tracing/agregar";
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setHeader("content-type", "application/json");
+
             try {
-                HttpResponse response = httpClient.execute(get);
-                if (response != null) {
+                JSONObject datos =  new JSONObject();
+                datos.put("latitud",latitud);
+                datos.put("longitud", longitud);
+                datos.put("fecha",fecha_hora);
+                datos.put("estatus", estatus);
+                StringEntity entity = new StringEntity(datos.toString());
+                httpPost.setEntity(entity);
+
+                HttpResponse response = httpClient.execute(httpPost);
+                String resp = EntityUtils.toString(response.getEntity());
+                if (resp != null) {
                     resultado = true;
                 } else {
                     resultado = false;
