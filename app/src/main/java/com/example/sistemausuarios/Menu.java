@@ -134,6 +134,7 @@ public class Menu extends AppCompatActivity {
 
             try {
                 JSONObject datos =  new JSONObject();
+
                 datos.put("latitud",latitud);
 
                 datos.put("longitud", longitud);
