@@ -10,106 +10,90 @@
 
 
     <ImageView
+
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/logotransporte"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:id="@+id/btn_carga"
-        android:layout_width="130dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/carga"
-        android:textSize="20dp"
-        android:onClick="toggleGPSUpdate"
-        tools:ignore="OnClick"/>
+        app:srcCompat="@drawable/logotransporte" />
     <TextView
-        android:layout_width="130dp"
-        android:layout_marginLeft="45dp"
-        android:layout_height="30dp"
-        android:textAlignment="center"
-        android:text="En Carga"
-        android:textStyle="bold"
-        android:textColor="#6495ED"
-        android:textSize="20dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VIAJES"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:paddingTop="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/btn_carga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:drawableTop="@drawable/carga"
+            android:padding="15dp"
+            android:text="En carga"
+            android:layout_gravity="start"
+            android:background="@drawable/redondo"
+            android:textSize="15dp" />
 
-    <Button
-        android:id="@+id/btn_inicar"
-        android:layout_width="130dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="220dp"
-        android:background="@drawable/terminarbandera"
-        android:layout_marginTop="-110dp"
-        android:textSize="20dp" />
-    <TextView
-        android:layout_width="130dp"
-        android:layout_marginLeft="220dp"
-        android:layout_height="30dp"
-        android:textAlignment="center"
-        android:text="Iniciando"
-        android:textStyle="bold"
-        android:textColor="#6495ED"
-        android:textSize="20dp"/>
+        <Button
+            android:gravity="center"
+            android:id="@+id/btn_inicar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/redondo"
+            android:text="En descarga"
+            android:drawableTop="@drawable/carga1"
+            android:textSize="15dp"
+            android:padding="15dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="30dp">
+        <Button
+            android:id="@+id/btn_descargar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/iniciar"
+            android:text="Iniciar"
+            android:background="@drawable/redondo"
+            android:layout_marginEnd="30dp"
+            android:textSize="15dp"
+            android:padding="15dp"/>
+        <Button
+            android:id="@+id/btn_finalizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/terminar"
+            android:padding="15dp"
+            android:text="terminar"
+            android:background="@drawable/redondo"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/logo"
+            />
+    </LinearLayout>
 
 
-    <Button
-        android:id="@+id/btn_descargar"
-        android:layout_width="130dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/descargar"
-        android:textSize="20dp" />
-
-    <TextView
-        android:layout_width="130dp"
-        android:layout_marginLeft="45dp"
-        android:layout_height="30dp"
-        android:textAlignment="center"
-        android:text="En Descarga"
-        android:textStyle="bold"
-        android:textColor="#6495ED"
-        android:textSize="20dp"/>
-
-    <Button
-        android:id="@+id/btn_finalizar"
-        android:layout_width="130dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="-110dp"
-        android:background="@drawable/flag"
-        android:textSize="20dp"/>
-
-    <TextView
-        android:layout_width="130dp"
-        android:layout_marginLeft="220dp"
-        android:layout_height="30dp"
-        android:textAlignment="center"
-        android:text="Finalizando"
-        android:textStyle="bold"
-        android:textColor="#6495ED"
-        android:textSize="20dp"
-        />
-
-
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginStart="110dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="30dp"
-        app:srcCompat="@drawable/logo"
-        android:layout_marginBottom="10dp"
-        />
 
 
 </LinearLayout>
