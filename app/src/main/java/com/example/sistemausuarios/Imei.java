@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -40,10 +41,19 @@ public class Imei extends AppCompatActivity {
     static final Integer PHONESTATS = 0x1;
     private final String TAG=Imei.class.getSimpleName();
 
+    private static final String STRING_PREFERENCES = "com.example.sistemausuarios";
+    private static final String PREFERENCE_ESTADO_IMEI_SESION = "estado.imei.sesion";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imei);
+
+        if (ObtenerEstado()){
+            Intent intent = new Intent(Imei.this.getApplicationContext(),Login.class);
+            startActivity(intent);
+            finish();
+        }
 
         btn_getIMEI = findViewById(R.id.btnIMEI);
         resIMEI = findViewById(R.id.imei);
@@ -59,6 +69,21 @@ public class Imei extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static void cambiarEstado(Context c, boolean b){
+        SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_IMEI_SESION, b).apply();
+    }
+
+    public void GuardarInicio(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_IMEI_SESION, btn_getIMEI.isClickable()).apply();
+    }
+
+    public boolean ObtenerEstado(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        return preferences.getBoolean(PREFERENCE_ESTADO_IMEI_SESION, false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -130,10 +155,12 @@ public class Imei extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean res){
             if(res){
+                GuardarInicio();
                 Toast t = Toast.makeText(getApplicationContext(),"¡Exito! IMEI Valido",Toast.LENGTH_LONG);
                 t.show();
                 Intent intent = new Intent(Imei.this.getApplicationContext(),Login.class);
                 startActivity(intent);
+                finish();
             }else {
                 Toast t = Toast.makeText(getApplicationContext(),"¡Error! El IMEI de este telfono no coincide",Toast.LENGTH_LONG);
                 t.show();

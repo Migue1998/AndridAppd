@@ -1,12 +1,16 @@
 package com.example.sistemausuarios;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +28,22 @@ public class Login extends AppCompatActivity {
     public TextView resulta;
     String msj = "";
     public  JSONObject jsonObject ;
+    RadioButton rbInicio;
+    private boolean ActivaRB;
+
+    private static final String STRING_PREFERENCES = "com.example.sistemausuarios";
+    private static final String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (ObtenerEstado()){
+            Intent intent = new Intent(Login.this,Menu.class);
+            startActivity(intent);
+            finish();
+        }
 
         txt_usuario = (EditText) findViewById(R.id.txtusuario);
         txt_password = (EditText) findViewById(R.id.txtpassword);
@@ -45,6 +59,22 @@ public class Login extends AppCompatActivity {
                 t.show();
             }
         });
+
+    }
+
+    public static void cambiarEstado(Context c, boolean b){
+        SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, b).apply();
+    }
+
+    public void GuardarInicio(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, btn_acceso.isClickable()).apply();
+    }
+
+    public boolean ObtenerEstado(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false);
     }
 
     private class LoginAsy extends AsyncTask<String, Integer, Boolean>{
@@ -68,7 +98,7 @@ public class Login extends AppCompatActivity {
                 HttpResponse response = httpClient.execute(get);
                 String resp = EntityUtils.toString(response.getEntity());
                 jsonObject = new JSONObject(resp);
-                idusuario = Integer.parseInt(jsonObject.getString("id"));
+                idusuario = Integer.parseInt(jsonObject.getString("idusuario"));
                 if(jsonObject.equals(null)){
                     return false;
                 }
@@ -87,9 +117,11 @@ public class Login extends AppCompatActivity {
                 Toast t = Toast.makeText(Login.this.getApplicationContext(),"Usuario y/o contraseña incorrectos",Toast.LENGTH_LONG);
                 t.show();
             }else{
+                GuardarInicio();
                 Intent intent = new Intent(Login.this,Menu.class);
                 intent.putExtra("idusuario",idusuario);
                 startActivity(intent);
+                finish();
             }
         }
     }

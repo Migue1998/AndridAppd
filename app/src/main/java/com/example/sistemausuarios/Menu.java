@@ -44,6 +44,8 @@ public class Menu extends AppCompatActivity {
     private LocationManager locationManager;
     private Location location;
 
+    Button cerrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +114,18 @@ public class Menu extends AppCompatActivity {
             toast.show();
         }
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        cerrar = findViewById(R.id.btn_cerrar);
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Imei.cambiarEstado(Menu.this, false);
+                Login.cambiarEstado(Menu.this, false);
+                Intent intent = new Intent(Menu.this,Imei.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
