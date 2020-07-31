@@ -1,4 +1,4 @@
-package com.example.sistemausuarios;
+package com.example.sistemausuarios.activity;
 
 public class notificaciones extends Thread {
 

@@ -1,12 +1,5 @@
-package com.example.sistemausuarios;
+package com.example.sistemausuarios.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +9,17 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.BoringLayout;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.example.sistemausuarios.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -37,6 +35,7 @@ public class Imei extends AppCompatActivity {
     Button btn_getIMEI;
     TextView resIMEI;
     String imei;
+    public  JSONObject jsonObject ;
     public static ArrayList<String> numeros;
     static final Integer PHONESTATS = 0x1;
     private final String TAG=Imei.class.getSimpleName();
@@ -47,28 +46,13 @@ public class Imei extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_imei);
+        setContentView(R.layout.activity_evidencias);
 
         if (ObtenerEstado()){
-            Intent intent = new Intent(Imei.this.getApplicationContext(),Login.class);
+            Intent intent = new Intent(Imei.this.getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
         }
-
-        btn_getIMEI = findViewById(R.id.btnIMEI);
-        resIMEI = findViewById(R.id.imei);
-
-        btn_getIMEI.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                permiso(Manifest.permission.READ_PHONE_STATE, PHONESTATS);
-                System.out.println(imei);
-                ImeiAsy imeiAsy = new ImeiAsy();
-                imeiAsy.execute();
-
-            }
-        });
     }
 
     public static void cambiarEstado(Context c, boolean b){
@@ -97,7 +81,7 @@ public class Imei extends AppCompatActivity {
             }
         }else{
             imei = obtenerIMEI();
-            Toast.makeText(Imei.this,"Persmiso concedido",Toast.LENGTH_LONG);
+            Toast.makeText(Imei.this,"Permiso concedido",Toast.LENGTH_LONG);
         }
     }
 
@@ -132,19 +116,19 @@ public class Imei extends AppCompatActivity {
             boolean resultado = true;
 
             HttpClient httpClient = new DefaultHttpClient();
-            String url = "http://10.0.2.2:8080/WebServiceLogin/webresources/Items/imei/"+imei+"";
+            String url = "http://10.0.2.2:8080/WSerp/webresources/imei/"+imei+"";
             HttpGet get = new HttpGet(url);
             get.setHeader("content-type","application/json");
             try{
                 HttpResponse response = httpClient.execute(get);
                 String resp = EntityUtils.toString(response.getEntity());
-                JSONObject jsonObject = new JSONObject(resp);
-                String Resimei = jsonObject.getString("imei");
-                if(Resimei == null){
+
+                jsonObject = new JSONObject(resp);
+                String  Resimei = jsonObject.getString("imei").toString();
+                if(jsonObject.equals(null)){
                     return false;
                 }
-
-
+                System.out.println("Llego"+ Resimei.toString());
             }
             catch (Exception ex){
                 System.out.println(ex.toString());
@@ -162,7 +146,7 @@ public class Imei extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Toast t = Toast.makeText(getApplicationContext(),"¡Error! El IMEI de este telfono no coincide",Toast.LENGTH_LONG);
+                Toast t = Toast.makeText(getApplicationContext(),"¡Error! El IMEI de este teléfono no coincide",Toast.LENGTH_LONG);
                 t.show();
             }
         }
